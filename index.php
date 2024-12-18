@@ -127,7 +127,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="bg-[#333333] text-white py-8">
         <div class="container mx-auto flex justify-between items-center">
             <p>&copy; 2024 Restaurant Victory</p>

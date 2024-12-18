@@ -5,35 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Victory - Our Menus</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'victory-red': '#ff6b6b'
-                    }
-                }
-            }
-        }
-    </script>
 </head>
 <body class="bg-gray-50 font-sans">
-    <!-- Header -->
+
     <header class="bg-white shadow-md">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-victory-red">Victory</a>
+            <a href="#" class="text-2xl font-bold text-[#ff6b6b]">Victory</a>
             <nav>
                 <ul class="flex space-x-6">
-                    <li><a href="index.php" class="text-gray-700 hover:text-victory-red transition-colors">Accueil</a></li>
-                    <li><a href="menu.php" class="text-gray-700 hover:text-victory-red transition-colors">Menus</a></li>
-                    <li><a href="blog.php" class="text-gray-700 hover:text-victory-red transition-colors">Blog</a></li>
-                    <li><a href="contact.php" class="text-gray-700 hover:text-victory-red transition-colors">Contact</a></li>
+                    <li><a href="index.php" class="text-gray-700 hover:text-[#ff6b6b] transition-colors">Accueil</a></li>
+                    <li><a href="menu.php" class="text-gray-700 hover:text-[#ff6b6b] transition-colors">Menus</a></li>
+                    <li><a href="blog.php" class="text-gray-700 hover:text-[#ff6b6b] transition-colors">Blog</a></li>
+                    <li><a href="contact.php" class="text-gray-700 hover:text-[#ff6b6b] transition-colors">Contact</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- Hero Section -->
     <section class="bg-cover bg-center h-96 flex items-center justify-center" 
              style="background-image: url('img/heading-bg.jpg')">
         <div class="text-center">
@@ -45,9 +33,7 @@
         </div>
     </section>
 
-    <!-- Menu Sections -->
     <div class="container mx-auto px-4 py-12 space-y-12">
-        <!-- Breakfast Menu -->
         <section class="grid md:grid-cols-2 gap-8 items-center">
             <div class="order-2 md:order-1">
                 <img src="img/breakfast_menu.jpg" alt="Breakfast" class="w-full rounded-lg shadow-md">
@@ -60,7 +46,7 @@
                         <div>
                             <h4 class="font-bold text-xl">Kale Chips Art Party</h4>
                             <p class="text-gray-600">Dreamcatcher squid ennui cliche chicharros nes echo small batch jean ditcher meal...</p>
-                            <span class="text-victory-red font-bold">$3.50</span>
+                            <span class="text-[#ff6b6b] font-bold">$3.50</span>
                         </div>
                     </div>
                     <div class="bg-white p-4 rounded-lg shadow-md flex items-center">
@@ -68,7 +54,7 @@
                         <div>
                             <h4 class="font-bold text-xl">Drink Vinegar Prism</h4>
                             <p class="text-gray-600">Dreamcatcher squid ennui cliche chicharros nes echo small batch jean ditcher meal...</p>
-                            <span class="text-victory-red font-bold">$7.25</span>
+                            <span class="text-[#ff6b6b] font-bold">$7.25</span>
                         </div>
                     </div>
                     <div class="bg-white p-4 rounded-lg shadow-md flex items-center">
@@ -76,7 +62,7 @@
                         <div>
                             <h4 class="font-bold text-xl">Taiyaki Gastro Tousled</h4>
                             <p class="text-gray-600">Dreamcatcher squid ennui cliche chicharros nes echo small batch jean ditcher meal...</p>
-                            <span class="text-victory-red font-bold">$11.50</span>
+                            <span class="text-[#ff6b6b] font-bold">$11.50</span>
                         </div>
                     </div>
                 </div>
@@ -93,7 +79,7 @@
                         <div>
                             <h4 class="font-bold text-xl">Mumble Ditch Corn</h4>
                             <p class="text-gray-600">Dreamcatcher squid ennui cliche chicharros nes echo small batch jean ditcher meal...</p>
-                            <span class="text-victory-red font-bold">$6.50</span>
+                            <span class="text-[#ff6b6b] font-bold">$6.50</span>
                         </div>
                     </div>
                     <div class="bg-white p-4 rounded-lg shadow-md flex items-center">
@@ -101,7 +87,7 @@
                         <div>
                             <h4 class="font-bold text-xl">Wayfare Lomo Core</h4>
                             <p class="text-gray-600">Dreamcatcher squid ennui cliche chicharros nes echo small batch jean ditcher meal...</p>
-                            <span class="text-victory-red font-bold">$11.75</span>
+                            <span class="text-[#ff6b6b] font-bold">$11.75</span>
                         </div>
                     </div>
                     <div class="bg-white p-4 rounded-lg shadow-md flex items-center">
@@ -109,7 +95,7 @@
                         <div>
                             <h4 class="font-bold text-xl">Taiyaki Gastro Tousled</h4>
                             <p class="text-gray-600">Dreamcatcher squid ennui cliche chicharros nes echo small batch jean ditcher meal...</p>
-                            <span class="text-victory-red font-bold">$16.50</span>
+                            <span class="text-[#ff6b6b] font-bold">$16.50</span>
                         </div>
                     </div>
                 </div>
@@ -131,7 +117,7 @@
                         <div>
                             <h4 class="font-bold text-xl">Meal Apples Almonds</h4>
                             <p class="text-gray-600">Dreamcatcher squid ennui cliche chicharros nes echo small batch jean ditcher meal...</p>
-                            <span class="text-victory-red font-bold">$8.25</span>
+                            <span class="text-[#ff6b6b] font-bold">$8.25</span>
                         </div>
                     </div>
                     <div class="bg-white p-4 rounded-lg shadow-md flex items-center">
@@ -139,7 +125,7 @@
                         <div>
                             <h4 class="font-bold text-xl">Ditch Corn Art</h4>
                             <p class="text-gray-600">Dreamcatcher squid ennui cliche chicharros nes echo small batch jean ditcher meal...</p>
-                            <span class="text-victory-red font-bold">$12.50</span>
+                            <span class="text-[#ff6b6b] font-bold">$12.50</span>
                         </div>
                     </div>
                     <div class="bg-white p-4 rounded-lg shadow-md flex items-center">
@@ -147,7 +133,7 @@
                         <div>
                             <h4 class="font-bold text-xl">Kale Chips Art Party</h4>
                             <p class="text-gray-600">Dreamcatcher squid ennui cliche chicharros nes echo small batch jean ditcher meal...</p>
-                            <span class="text-victory-red font-bold">$16.00</span>
+                            <span class="text-[#ff6b6b] font-bold">$16.00</span>
                         </div>
                     </div>
                     <div class="bg-white p-4 rounded-lg shadow-md flex items-center">
@@ -155,7 +141,7 @@
                         <div>
                             <h4 class="font-bold text-xl">Kale Chips Art Party</h4>
                             <p class="text-gray-600">Dreamcatcher squid ennui cliche chicharros nes echo small batch jean ditcher meal...</p>
-                            <span class="text-victory-red font-bold">$16.00</span>
+                            <span class="text-[#ff6b6b] font-bold">$16.00</span>
                         </div>
                     </div>
                     <div class="bg-white p-4 rounded-lg shadow-md flex items-center">
@@ -163,7 +149,7 @@
                         <div>
                             <h4 class="font-bold text-xl">Kale Chips Art Party</h4>
                             <p class="text-gray-600">Dreamcatcher squid ennui cliche chicharros nes echo small batch jean ditcher meal...</p>
-                            <span class="text-victory-red font-bold">$16.00</span>
+                            <span class="text-[#ff6b6b] font-bold">$16.00</span>
                         </div>
                     </div>
                 </div>
@@ -225,14 +211,13 @@
     </div>
 </section>
 
-    <!-- Footer -->
     <footer class="bg-gray-800 text-white py-8">
         <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
             <p>&copy; 2020 Victory Template</p>
             <div class="flex space-x-4 mt-4 md:mt-0">
-                <a href="#" class="hover:text-victory-red">Facebook</a>
-                <a href="#" class="hover:text-victory-red">Twitter</a>
-                <a href="#" class="hover:text-victory-red">LinkedIn</a>
+                <a href="#" class="hover:text-[#ff6b6b]">Facebook</a>
+                <a href="#" class="hover:text-[#ff6b6b]">Twitter</a>
+                <a href="#" class="hover:text-[#ff6b6b]">LinkedIn</a>
             </div>
             <p class="mt-4 md:mt-0">Design: TemplateMo</p>
         </div>
