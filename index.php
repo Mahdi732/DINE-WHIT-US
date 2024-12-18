@@ -12,10 +12,10 @@
             <a href="#" class="text-2xl font-bold text-[#ff6b6b]">Victory</a>
             <nav>
                 <ul class="flex space-x-6">
-                    <li><a href="index.php" class="hover:text-[#ff6b6b] transition-colors">Accueil</a></li>
-                    <li><a href="menu.php" class="hover:text-[#ff6b6b] transition-colors">Menus</a></li>
-                    <li><a href="blog.php" class="hover:text-[#ff6b6b] transition-colors">Blog</a></li>
-                    <li><a href="contact.php" class="hover:text-[#ff6b6b] transition-colors">Contact</a></li>
+                <li><a href="index.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">Accueil</a></li>
+                <li><a href="menu.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">Menus</a></li>
+                <li><a href="login.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">Login</a></li>
+                <li><a href="profile.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">profile</a></li>
                 </ul>
             </nav>
         </div>

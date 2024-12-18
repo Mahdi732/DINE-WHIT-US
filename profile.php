@@ -54,35 +54,27 @@
     </style>
 </head>
 <body class="bg-gradient-to-br from-deep-blue to-night-blue text-white min-h-screen flex flex-col">
-    <!-- Header -->
+
     <header class="fixed w-full top-0 z-50 glass-morphism shadow-lg">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-4 animate-fade-in-down">
                 <div class="w-12 h-12 bg-secondary rounded-full flex items-center justify-center">
-                    <span class="text-white font-bold">M</span>
+                    <span class="text-white font-bold "><img class="rounded-full" src="img/wissam.jpg" alt=""></span>
                 </div>
-                <span class="text-2xl font-bold text-accent tracking-wider">ModernDesign</span>
+                <span class="text-2xl font-bold text-accent tracking-wider">Chef.Wissam</span>
             </div>
             <nav>
                 <ul class="flex space-x-6">
-                    <li><a href="#" class="text-accent hover:text-white transition-all duration-300 transform hover:scale-110 relative group">
-                        Accueil
-                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300"></span>
-                    </a></li>
-                    <li><a href="#" class="text-accent hover:text-white transition-all duration-300 transform hover:scale-110 relative group">
-                        Services
-                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300"></span>
-                    </a></li>
-                    <li><a href="#" class="text-accent hover:text-white transition-all duration-300 transform hover:scale-110 relative group">
-                        Contact
-                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300"></span>
-                    </a></li>
+                <li><a href="index.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">Accueil</a></li>
+                <li><a href="menu.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">Menus</a></li>
+                <li><a href="login.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">Login</a></li>
+                <li><a href="profile.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">profile</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- Contenu principal -->
+    <div class="">
     <main class="container mx-auto px-4 pt-24 pb-12 flex-grow">
         <div class="grid md:grid-cols-2 gap-8">
             <div class="glass-morphism p-8 rounded-2xl shadow-2xl transform transition-all duration-500 hover:scale-105 animate-fade-in-down">
@@ -99,7 +91,6 @@
                         En Savoir Plus
                     </button>
                 </div>
-                <!-- Espace pour image principale -->
                 <div class="w-full h-64 image-placeholder rounded-2xl">
                     Image Principale
                 </div>
@@ -109,7 +100,6 @@
                     <div class="text-4xl font-bold text-accent mb-4">01</div>
                     <h3 class="text-xl mb-3">Design Créatif</h3>
                     <p class="text-sm opacity-75">Solutions visuelles innovantes</p>
-                    <!-- Espace pour mini image -->
                     <div class="w-full h-32 image-placeholder mt-4 rounded-xl">
                         Image Service 1
                     </div>
@@ -118,7 +108,6 @@
                     <div class="text-4xl font-bold text-accent mb-4">02</div>
                     <h3 class="text-xl mb-3">Tech Avancée</h3>
                     <p class="text-sm opacity-75">Technologies de pointe</p>
-                    <!-- Espace pour mini image -->
                     <div class="w-full h-32 image-placeholder mt-4 rounded-xl">
                         Image Service 2
                     </div>
@@ -127,7 +116,6 @@
                     <div class="text-4xl font-bold text-accent mb-4">03</div>
                     <h3 class="text-xl mb-3">Support Total</h3>
                     <p class="text-sm opacity-75">Accompagnement personnalisé</p>
-                    <!-- Espace pour mini image -->
                     <div class="w-full h-32 image-placeholder mt-4 rounded-xl">
                         Image Service 3
                     </div>
@@ -136,7 +124,6 @@
                     <div class="text-4xl font-bold text-accent mb-4">04</div>
                     <h3 class="text-xl mb-3">Stratégie</h3>
                     <p class="text-sm opacity-75">Approche sur mesure</p>
-                    <!-- Espace pour mini image -->
                     <div class="w-full h-32 image-placeholder mt-4 rounded-xl">
                         Image Service 4
                     </div>
@@ -144,7 +131,6 @@
             </div>
         </div>
 
-        <!-- Nouvelle section avec galerie d'images -->
         <section class="mt-12">
             <h2 class="text-3xl font-bold text-accent text-center mb-8">Notre Portfolio</h2>
             <div class="grid md:grid-cols-3 gap-8">
@@ -160,16 +146,17 @@
             </div>
         </section>
     </main>
+    </div>
 
-    <!-- Footer -->
-    <footer class="bg-primary bg-opacity-50 py-8 mt-auto">
-        <div class="container mx-auto px-4 flex justify-between items-center">
-            <p class="text-sm text-accent">© 2024 ModernDesign. Tous droits réservés.</p>
-            <div class="flex space-x-4">
-                <a href="#" class="text-accent hover:text-white transition-colors duration-300 transform hover:scale-125">LinkedIn</a>
-                <a href="#" class="text-accent hover:text-white transition-colors duration-300 transform hover:scale-125">Twitter</a>
-                <a href="#" class="text-accent hover:text-white transition-colors duration-300 transform hover:scale-125">GitHub</a>
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+            <p>&copy; 2020 Victory Template</p>
+            <div class="flex space-x-4 mt-4 md:mt-0">
+                <a href="#" class="hover:text-[#ff6b6b]">Facebook</a>
+                <a href="#" class="hover:text-[#ff6b6b]">Twitter</a>
+                <a href="#" class="hover:text-[#ff6b6b]">LinkedIn</a>
             </div>
+            <p class="mt-4 md:mt-0">Design: TemplateMo</p>
         </div>
     </footer>
 </body>

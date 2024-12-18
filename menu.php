@@ -13,10 +13,10 @@
             <a href="#" class="text-2xl font-bold text-[#ff6b6b]">Victory</a>
             <nav>
                 <ul class="flex space-x-6">
-                    <li><a href="index.php" class="text-gray-700 hover:text-[#ff6b6b] transition-colors">Accueil</a></li>
-                    <li><a href="menu.php" class="text-gray-700 hover:text-[#ff6b6b] transition-colors">Menus</a></li>
-                    <li><a href="blog.php" class="text-gray-700 hover:text-[#ff6b6b] transition-colors">Blog</a></li>
-                    <li><a href="contact.php" class="text-gray-700 hover:text-[#ff6b6b] transition-colors">Contact</a></li>
+                    <li><a href="index.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">Accueil</a></li>
+                    <li><a href="menu.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">Menus</a></li>
+                    <li><a href="login.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">Login</a></li>
+                    <li><a href="profile.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">profile</a></li>
                 </ul>
             </nav>
         </div>
@@ -34,13 +34,29 @@
     </section>
 
     <div class="container mx-auto px-4 py-12 space-y-12">
-        <section class="grid md:grid-cols-2 gap-8 items-center">
+        <section class="grid md:grid-cols-2 gap-8 items-start">
             <div class="order-2 md:order-1">
                 <img src="img/breakfast_menu.jpg" alt="Breakfast" class="w-full rounded-lg shadow-md">
             </div>
             <div class="order-1 md:order-2">
                 <h2 class="text-3xl font-bold mb-6">Breakfast Menu</h2>
-                <div class="space-y-4">
+                <div class="space-y-4 ">
+                    <div class="bg-white p-4 rounded-lg shadow-md flex items-center">
+                        <img src="img/breakfast_item.jpg" alt="Breakfast Item" class="w-24 h-24 object-cover rounded-md mr-4">
+                        <div>
+                            <h4 class="font-bold text-xl">Kale Chips Art Party</h4>
+                            <p class="text-gray-600">Dreamcatcher squid ennui cliche chicharros nes echo small batch jean ditcher meal...</p>
+                            <span class="text-[#ff6b6b] font-bold">$3.50</span>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-md flex items-center">
+                        <img src="img/breakfast_item.jpg" alt="Breakfast Item" class="w-24 h-24 object-cover rounded-md mr-4">
+                        <div>
+                            <h4 class="font-bold text-xl">Kale Chips Art Party</h4>
+                            <p class="text-gray-600">Dreamcatcher squid ennui cliche chicharros nes echo small batch jean ditcher meal...</p>
+                            <span class="text-[#ff6b6b] font-bold">$3.50</span>
+                        </div>
+                    </div>
                     <div class="bg-white p-4 rounded-lg shadow-md flex items-center">
                         <img src="img/breakfast_item.jpg" alt="Breakfast Item" class="w-24 h-24 object-cover rounded-md mr-4">
                         <div>
@@ -69,8 +85,7 @@
             </div>
         </section>
 
-        <!-- Lunch Menu -->
-        <section class="grid md:grid-cols-2 gap-8 items-center">
+        <section class="grid md:grid-cols-2 gap-8 items-start">
             <div>
                 <h2 class="text-3xl font-bold mb-6">Lunch Menu</h2>
                 <div class="space-y-4">
@@ -80,6 +95,22 @@
                             <h4 class="font-bold text-xl">Mumble Ditch Corn</h4>
                             <p class="text-gray-600">Dreamcatcher squid ennui cliche chicharros nes echo small batch jean ditcher meal...</p>
                             <span class="text-[#ff6b6b] font-bold">$6.50</span>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-md flex items-center">
+                        <img src="img/breakfast_item.jpg" alt="Breakfast Item" class="w-24 h-24 object-cover rounded-md mr-4">
+                        <div>
+                            <h4 class="font-bold text-xl">Kale Chips Art Party</h4>
+                            <p class="text-gray-600">Dreamcatcher squid ennui cliche chicharros nes echo small batch jean ditcher meal...</p>
+                            <span class="text-[#ff6b6b] font-bold">$3.50</span>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-md flex items-center">
+                        <img src="img/breakfast_item.jpg" alt="Breakfast Item" class="w-24 h-24 object-cover rounded-md mr-4">
+                        <div>
+                            <h4 class="font-bold text-xl">Kale Chips Art Party</h4>
+                            <p class="text-gray-600">Dreamcatcher squid ennui cliche chicharros nes echo small batch jean ditcher meal...</p>
+                            <span class="text-[#ff6b6b] font-bold">$3.50</span>
                         </div>
                     </div>
                     <div class="bg-white p-4 rounded-lg shadow-md flex items-center">
@@ -102,7 +133,7 @@
             </div>
             <div>
                 <img src="img/lunch_menu.jpg" alt="Lunch" class="w-full rounded-lg shadow-md">
-            </div>t
+            </div>
         </section>
 
         <section class="grid md:grid-cols-2 gap-8 items-start">
@@ -153,6 +184,56 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
+        <section class="grid md:grid-cols-2 gap-8 items-start">
+            <div>
+                <h2 class="text-3xl font-bold mb-6">Lunch Menu</h2>
+                <div class="space-y-4">
+                    <div class="bg-white p-4 rounded-lg shadow-md flex items-center">
+                        <img src="img/lunch_item.jpg" alt="Lunch Item" class="w-24 h-24 object-cover rounded-md mr-4">
+                        <div>
+                            <h4 class="font-bold text-xl">Mumble Ditch Corn</h4>
+                            <p class="text-gray-600">Dreamcatcher squid ennui cliche chicharros nes echo small batch jean ditcher meal...</p>
+                            <span class="text-[#ff6b6b] font-bold">$6.50</span>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-md flex items-center">
+                        <img src="img/breakfast_item.jpg" alt="Breakfast Item" class="w-24 h-24 object-cover rounded-md mr-4">
+                        <div>
+                            <h4 class="font-bold text-xl">Kale Chips Art Party</h4>
+                            <p class="text-gray-600">Dreamcatcher squid ennui cliche chicharros nes echo small batch jean ditcher meal...</p>
+                            <span class="text-[#ff6b6b] font-bold">$3.50</span>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-md flex items-center">
+                        <img src="img/breakfast_item.jpg" alt="Breakfast Item" class="w-24 h-24 object-cover rounded-md mr-4">
+                        <div>
+                            <h4 class="font-bold text-xl">Kale Chips Art Party</h4>
+                            <p class="text-gray-600">Dreamcatcher squid ennui cliche chicharros nes echo small batch jean ditcher meal...</p>
+                            <span class="text-[#ff6b6b] font-bold">$3.50</span>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-md flex items-center">
+                        <img src="img/breakfast_item.jpg" alt="Breakfast Item" class="w-24 h-24 object-cover rounded-md mr-4">
+                        <div>
+                            <h4 class="font-bold text-xl">Wayfare Lomo Core</h4>
+                            <p class="text-gray-600">Dreamcatcher squid ennui cliche chicharros nes echo small batch jean ditcher meal...</p>
+                            <span class="text-[#ff6b6b] font-bold">$11.75</span>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-md flex items-center">
+                        <img src="img/dinner_item.jpg" alt="Dinner Item" class="w-24 h-24 object-cover rounded-md mr-4">
+                        <div>
+                            <h4 class="font-bold text-xl">Taiyaki Gastro Tousled</h4>
+                            <p class="text-gray-600">Dreamcatcher squid ennui cliche chicharros nes echo small batch jean ditcher meal...</p>
+                            <span class="text-[#ff6b6b] font-bold">$16.50</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <img src="img/lunch_menu.jpg" alt="Lunch" class="w-full rounded-lg shadow-md">
             </div>
         </section>
     </div>
