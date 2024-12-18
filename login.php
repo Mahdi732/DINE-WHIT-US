@@ -34,7 +34,6 @@
     </header>
     <div class="w-full mx-auto my-8 max-w-md">
         <div class="bg-white shadow-xl rounded-2xl  overflow-hidden border border-gray-200">
-            <!-- Tab Navigation -->
             <div class="flex">
                 <button id="loginTab" class="w-1/2 py-4 text-center bg-gray-100 font-semibold text-gray-700 hover:bg-gray-200 transition-colors active-tab" onclick="showLogin()">
                     Login
@@ -44,7 +43,6 @@
                 </button>
             </div>
 
-            <!-- Login Form -->
             <div id="loginForm" class="p-8">
                 <h2 class="text-2xl font-bold text-center mb-6 text-secondary">Welcome Back</h2>
                 
@@ -85,7 +83,6 @@
                 </div>
             </div>
 
-            <!-- Sign Up Form -->
             <div id="signupForm" class="p-8 hidden">
                 <h2 class="text-2xl font-bold text-center mb-6 text-secondary">Create an Account</h2>
                 
