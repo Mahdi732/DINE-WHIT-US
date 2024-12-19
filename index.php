@@ -102,10 +102,7 @@
             </form>
         </div>
     </div>
-</section>
-
-
-
+    </section>
 
     <section class="bg-[#ff6b6b] text-white pt-4 h-[10rem]">
         <div class="container mx-auto text-center">

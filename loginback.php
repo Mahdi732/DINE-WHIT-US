@@ -10,24 +10,24 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     mysqli_stmt_bind_param($stmt, "s", $email_login);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
-
     if (mysqli_num_rows($result) > 0) {
         $user = mysqli_fetch_assoc($result);
         if (password_verify($password_login, $user["mot_de_passe"])) {
-            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_id'] = $user['id_client'];
             $_SESSION['user_email'] = $user['email'];
-            if ($email_login === "admin@gmailcom" && $password_login === "admin") {
+            if ($email_login === "admin@gmail.com" && password_verify($password_login, $user["mot_de_passe"])) {
                 header("Location: admin.php");
             } else {
                 header("Location: user.php");
             }
             exit;
+
         } else {
             echo "<script>alert('Invalid credentials');git </script>";
         }
         }else 
         {
-        echo "<script>alert('Invalid credentials');</script>";
+        echo "<script>alert('Invalid bobo');</script>";
         }
 }
 ?>

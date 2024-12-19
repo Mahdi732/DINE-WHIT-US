@@ -46,3 +46,8 @@ CREATE TABLE statistiques (
     FOREIGN KEY (id_chef) REFERENCES utilisateurs(id_utilisateur)
 );
 
+
+
+
+
+

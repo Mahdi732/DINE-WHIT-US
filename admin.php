@@ -1,3 +1,23 @@
+<?php
+session_start();
+include("/xampp/htdocs/dinewhitus/db.php");
+if (!isset($_SESSION['user_id'])) {
+    header("Location: admin.php");
+    exit;
+}
+$user_email = $_SESSION['user_email'];
+$sql = "SELECT * FROM client WHERE email = ?";
+$stmt = mysqli_prepare($conn ,$sql);
+mysqli_stmt_bind_param($stmt, "s", $user_email);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+if (mysqli_num_rows($result) > 0 ) {
+    $user = mysqli_fetch_assoc($result);
+}else {
+    echo "User not found";
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -30,14 +50,13 @@
     </style>
 </head>
 <body class="bg-gradient-to-br from-deep-blue to-night-blue text-white min-h-screen flex">
-    <!-- Sidebar -->
-    <aside class="w-64 glass-morphism min-h-screen fixed left-0 top-0">
+    <div class="w-64 glass-morphism min-h-screen fixed left-0 top-0">
         <div class="p-4">
             <div class="flex items-center space-x-4 mb-8">
                 <div class="w-12 h-12 bg-secondary rounded-full flex items-center justify-center">
                     <img class="rounded-full w-full h-full object-cover" src="img/wissam.jpg" alt="Admin">
                 </div>
-                <span class="text-xl font-bold text-accent">Admin Panel</span>
+                <span class="text-xl font-bold text-accent"><?php echo $user['nom'] . " " . $user['prenom'] ?></span>
             </div>
             
             <nav class="space-y-4">
@@ -52,20 +71,24 @@
                 </a>
             </nav>
         </div>
-    </aside>
+    </div>
 
-    <!-- Main Content -->
     <main class="ml-64 flex-grow p-8">
         <div class="container mx-auto">
-            <!-- Header -->
             <div class="flex justify-between items-center mb-8">
                 <h1 class="text-3xl font-bold text-accent">Tableau de Bord</h1>
+                <div class="flex gap-3">
                 <button class="bg-secondary text-white px-6 py-2 rounded-lg hover:bg-accent transition-all" onclick="document.getElementById('addmenuform').classList.toggle('hidden')">
                     Nouveau Menu
                 </button>
+                <form action="logout.php" method="post">
+                    <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-4 py-3 rounded-md text-sm transition duration-300">
+                        Logout
+                    </button>
+                </form>
+                </div>
             </div>
 
-            <!-- Stats Cards -->
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
                 <div class="glass-morphism p-6 rounded-xl">
                     <h3 class="text-lg mb-2">Total Menus</h3>
@@ -85,7 +108,6 @@
                 </div>
             </div>
 
-            <!-- Recent Orders Table -->
             <div class="glass-morphism rounded-xl p-6">
                 <h2 class="text-2xl font-bold mb-4 text-accent">Commandes Récentes</h2>
                 <div class="overflow-x-auto">
@@ -111,12 +133,45 @@
                                     <button class="text-accent hover:text-secondary">Voir détails</button>
                                 </td>
                             </tr>
-                            <!-- Add more rows as needed -->
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
+        <div class="grid grid-cols-2 gap-6 mt-8">
+                <div class="glass-morphism p-6 rounded-2xl text-center transform transition-all duration-500 hover:scale-105 animate-pulse-slow">
+                    <div class="text-4xl font-bold text-accent mb-4">01</div>
+                    <h3 class="text-xl mb-3">Design Créatif</h3>
+                    <p class="text-sm opacity-75">Solutions visuelles innovantes</p>
+                    <div class="w-full h-32 image-placeholder mt-4 rounded-xl">
+                        Image Service 1
+                    </div>
+                </div>
+                <div class="glass-morphism p-6 rounded-2xl text-center transform transition-all duration-500 hover:scale-105 animate-pulse-slow">
+                    <div class="text-4xl font-bold text-accent mb-4">02</div>
+                    <h3 class="text-xl mb-3">Tech Avancée</h3>
+                    <p class="text-sm opacity-75">Technologies de pointe</p>
+                    <div class="w-full h-32 image-placeholder mt-4 rounded-xl">
+                        Image Service 2
+                    </div>
+                </div>
+                <div class="glass-morphism p-6 rounded-2xl text-center transform transition-all duration-500 hover:scale-105 animate-pulse-slow">
+                    <div class="text-4xl font-bold text-accent mb-4">03</div>
+                    <h3 class="text-xl mb-3">Support Total</h3>
+                    <p class="text-sm opacity-75">Accompagnement personnalisé</p>
+                    <div class="w-full h-32 image-placeholder mt-4 rounded-xl">
+                        Image Service 3
+                    </div>
+                </div>
+                <div class="glass-morphism p-6 rounded-2xl text-center transform transition-all duration-500 hover:scale-105 animate-pulse-slow">
+                    <div class="text-4xl font-bold text-accent mb-4">04</div>
+                    <h3 class="text-xl mb-3">Stratégie</h3>
+                    <p class="text-sm opacity-75">Approche sur mesure</p>
+                    <div class="w-full h-32 image-placeholder mt-4 rounded-xl">
+                        Image Service 4
+                    </div>
+                </div>
+            </div>
     </main>
 
     <div class="bg-black absolute justify-center w-full hidden" id="addmenuform">
