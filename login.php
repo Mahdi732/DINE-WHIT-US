@@ -143,7 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $name = $_POST['name'];
     $prenom = $_POST['prenom'];
     $email = $_POST['email'];
-    $password = $_POST['password'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     $sql = "INSERT INTO client (nom, prenom, email, mot_de_passe) VALUES (?, ?, ?, ?)";
     $sqlstmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($sqlstmt, "ssss", $name, $prenom, $email, $password);

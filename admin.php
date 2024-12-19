@@ -41,20 +41,14 @@
             </div>
             
             <nav class="space-y-4">
-                <a href="#" class="block py-2 px-4 text-accent hover:bg-secondary rounded-lg transition-all">
-                    Dashboard
+                <a href="index.php" class="block py-2 px-4 text-accent hover:bg-secondary rounded-lg transition-all">
+                    Home
                 </a>
-                <a href="#" class="block py-2 px-4 text-accent hover:bg-secondary rounded-lg transition-all">
-                    Gérer les Menus
+                <a href="menu.php" class="block py-2 px-4 text-accent hover:bg-secondary rounded-lg transition-all">
+                    Menu
                 </a>
-                <a href="#" class="block py-2 px-4 text-accent hover:bg-secondary rounded-lg transition-all">
-                    Utilisateurs
-                </a>
-                <a href="#" class="block py-2 px-4 text-accent hover:bg-secondary rounded-lg transition-all">
-                    Commandes
-                </a>
-                <a href="#" class="block py-2 px-4 text-accent hover:bg-secondary rounded-lg transition-all">
-                    Paramètres
+                <a href="admin.php" class="block py-2 px-4 text-accent hover:bg-secondary rounded-lg transition-all">
+                    Profile
                 </a>
             </nav>
         </div>
