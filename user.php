@@ -64,9 +64,9 @@
             </div>
             <nav>
                 <ul class="flex space-x-6">
-                    <li><a href="#" class="text-accent hover:text-red-400 transition-all duration-300 transform">Dashboard</a></li>
-                    <li><a href="#" class="text-accent hover:text-red-400 transition-all duration-300 transform">Profile</a></li>
-                    <li><a href="#" class="text-accent hover:text-red-400 transition-all duration-300 transform">Logout</a></li>
+                <li><a href="index.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">Accueil</a></li>
+                <li><a href="menu.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">Menus</a></li>
+                <li><a href="login.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">Login</a></li>
                 </ul>
             </nav>
         </div>
@@ -74,7 +74,6 @@
 
     <main class="container mx-auto px-4 pt-24 pb-12 flex-grow">
         <div class="grid md:grid-cols-3 gap-8">
-            <!-- Profile Overview -->
             <div class="md:col-span-1 glass-morphism p-6 rounded-2xl shadow-2xl transform transition-all duration-500 hover:scale-105 animate-fade-in-down">
                 <div class="text-center">
                     <div class="w-32 h-32 mx-auto bg-secondary rounded-full flex items-center justify-center mb-4">
@@ -104,7 +103,6 @@
                 </div>
             </div>
 
-            <!-- Reservation History -->
             <div class="md:col-span-2 glass-morphism p-6 rounded-2xl">
                 <h3 class="text-2xl font-bold text-accent mb-6">Reservation History</h3>
                 <div class="space-y-4">
@@ -141,7 +139,6 @@
                 </div>
             </div>
 
-            <!-- Dining History -->
             <div class="md:col-span-3 glass-morphism p-6 rounded-2xl">
                 <h3 class="text-2xl font-bold text-accent mb-6">Dining History</h3>
                 <div class="grid md:grid-cols-3 gap-4">

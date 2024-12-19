@@ -24,19 +24,18 @@ tryIt.addEventListener("click", _ => {
     if (signupName.value.trim() !== "" && signupPrenom.value.trim() !== "" && signupEmail.value.trim() !== "" && signupPassword.value.trim() !== "" && confirmPassword.value.trim() !== "" ) {
         if (signupPassword.value.trim() === confirmPassword.value.trim()) {
             if (check.checked) {
-        
             }else{
-                alert("check it or you are gay");
+                alert("check it");
                 event.preventDefault();
             }
         }else{
-            alert("corect it or you are gay");
+            alert("pass");
             event.preventDefault();
         }
-        
     }else{
-        alert("you are gay");
+        alert("r");
         event.preventDefault();
     }
     
 });
+

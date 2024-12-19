@@ -18,7 +18,7 @@
         }
     </script>
 </head>
-<body class="bg-[#f0f0f0] bg-[url('img/book-bg.jpg')] bg-cover bg-no-repeat">
+<body class="bg-[#f0f0f0] bg-[url('img/bomok-bg.jpg')] bg-cover bg-no-repeat">
 <header class="bg-white shadow-md">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <a href="#" class="text-2xl font-bold text-[#ff6b6b]">Victory</a>
@@ -27,7 +27,6 @@
                 <li><a href="index.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">Accueil</a></li>
                 <li><a href="menu.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">Menus</a></li>
                 <li><a href="login.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">Login</a></li>
-                <li><a href="profile.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">profile</a></li>
                 </ul>
             </nav>
         </div>
@@ -47,15 +46,15 @@
             <div id="loginForm" class="p-8">
                 <h2 class="text-2xl font-bold text-center mb-6 text-secondary">Welcome Back</h2>
                 
-                <form method="POST" >
+                <form method="POST" action="loginback.php">
                     <div class="mb-4">
                         <label for="loginEmail" class="block text-secondary text-sm font-bold mb-2">Email</label>
-                        <input type="email" name="email" id="loginEmail" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Enter your email">
+                        <input type="email" name="email_login" id="loginEmail" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Enter your email">
                     </div>
                     
                     <div class="mb-6">
                         <label for="loginPassword" class="block text-secondary text-sm font-bold mb-2">Password</label>
-                        <input type="password" name="password" id="loginPassword" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Enter your password">
+                        <input type="password" name="password_login" id="loginPassword" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Enter your password">
                     </div>
                     
                     <div class="flex items-center justify-between mb-6">
@@ -66,7 +65,7 @@
                         <a href="#" class="text-sm text-primary hover:underline">Forgot password?</a>
                     </div>
                     
-                    <button type="submit" class="w-full bg-primary text-white py-2 rounded-md hover:opacity-90 transition-colors">
+                    <button type="submit" id="signin" class="w-full bg-primary text-white py-2 rounded-md hover:opacity-90 transition-colors">
                         Login
                     </button>
                 </form>
