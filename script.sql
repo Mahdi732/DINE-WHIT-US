@@ -51,3 +51,28 @@ CREATE TABLE statistiques (
 
 
 
+<div class="space-y-2">
+                <label class="block text-accent text-sm font-bold">Type de Plat</label>
+                <div class="grid grid-cols-2 gap-4">
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                        <input type="checkbox" name="type" value="entree" required
+                            class="form-checkbox text-secondary">
+                        <span class="text-white">Entrée</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                        <input type="checkbox" name="type" value="plat" required
+                            class="form-checkbox text-secondary">
+                        <span class="text-white">Plat Principal</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                        <input type="checkbox" name="type" value="dessert" required
+                            class="form-checkbox text-secondary">
+                        <span class="text-white">Dessert</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                        <input type="checkbox" name="type" value="boisson" required
+                            class="form-checkbox text-secondary">
+                        <span class="text-white">Boisson</span>
+                    </label>
+                </div>
+            </div>

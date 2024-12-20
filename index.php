@@ -113,10 +113,7 @@
                     placeholder="Votre adresse email" 
                     class="flex-grow p-4 text-[#333333] rounded-l-lg"
                 >
-                <button 
-                    type="submit" 
-                    class="bg-[#333333] text-white px-8 py-4 rounded-r-lg hover:bg-opacity-80"
-                >
+                <button type="submit" class="bg-[#333333] text-white px-8 py-4 rounded-r-lg hover:bg-opacity-80">
                     S'inscrire
                 </button>
             </form>

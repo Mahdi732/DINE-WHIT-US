@@ -79,7 +79,7 @@ if (mysqli_num_rows($result) > 0 ) {
                 <h1 class="text-3xl font-bold text-accent">Tableau de Bord</h1>
                 <div class="flex gap-3">
                 <button class="bg-secondary text-white px-6 py-2 rounded-lg hover:bg-accent transition-all" onclick="document.getElementById('addmenuform').classList.toggle('hidden')">
-                    Nouveau Menu
+                    Nouveau Plat
                 </button>
                 <form action="logout.php" method="post">
                     <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-4 py-3 rounded-md text-sm transition duration-300">
@@ -185,7 +185,7 @@ if (mysqli_num_rows($result) > 0 ) {
             </button>
         </div>
         
-        <form method="POST" action="addmenu.php" enctype="multipart/form-data" class="space-y-6">
+        <form method="POST" action="addplat.php" enctype="multipart/form-data" class="space-y-6">
             <div class="space-y-2">
                 <label class="block text-accent text-sm font-bold">Image du Plat</label>
                 <div class="flex items-center justify-center w-full">
@@ -209,31 +209,6 @@ if (mysqli_num_rows($result) > 0 ) {
                 <input type="number" id="price" name="price" step="0.01" required
                     class="w-full px-4 py-2 bg-deep-blue border border-accent rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary text-white"
                     placeholder="0.00">
-            </div>
-            <div class="space-y-2">
-                <label class="block text-accent text-sm font-bold">Type de Plat</label>
-                <div class="grid grid-cols-2 gap-4">
-                    <label class="flex items-center space-x-2 cursor-pointer">
-                        <input type="checkbox" name="type" value="entree" required
-                            class="form-checkbox text-secondary">
-                        <span class="text-white">Entrée</span>
-                    </label>
-                    <label class="flex items-center space-x-2 cursor-pointer">
-                        <input type="checkbox" name="type" value="plat" required
-                            class="form-checkbox text-secondary">
-                        <span class="text-white">Plat Principal</span>
-                    </label>
-                    <label class="flex items-center space-x-2 cursor-pointer">
-                        <input type="checkbox" name="type" value="dessert" required
-                            class="form-checkbox text-secondary">
-                        <span class="text-white">Dessert</span>
-                    </label>
-                    <label class="flex items-center space-x-2 cursor-pointer">
-                        <input type="checkbox" name="type" value="boisson" required
-                            class="form-checkbox text-secondary">
-                        <span class="text-white">Boisson</span>
-                    </label>
-                </div>
             </div>
             <button type="submit" 
                 class="w-full bg-secondary text-white py-3 rounded-lg hover:bg-accent transition-colors duration-300 font-bold">
