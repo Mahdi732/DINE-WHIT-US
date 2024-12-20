@@ -1,8 +1,9 @@
-DineWithUs - Web Application for Restaurant Reservation System
+###DineWithUs - Web Application for Restaurant Reservation System
+
 Project Overview
 DineWithUs is a web application that allows users (clients) to explore menus, book reservations, and manage their profiles, while chefs (administrators) can manage reservations, approve or deny requests, and monitor detailed statistics. The platform provides an intuitive and elegant user experience for both clients and chefs.
 
-Features
+##Features
 User (Client) Features
 View Menus: Clients can browse menus offered by the chefs.
 Sign Up & Login: Users can register and log in to their accounts.
@@ -18,12 +19,12 @@ Upcoming reservation details (next client and their booking).
 Total number of registered clients.
 Menu Management: Chefs can create and manage their menus, including adding dishes.
 Technology Stack
-Frontend:
+##Frontend:
 HTML5: Structure of the pages.
 CSS3: Styling, with a responsive layout to ensure compatibility across all devices (mobile, tablet, desktop).
 Bootstrap / Tailwind CSS: For a modern, elegant, and responsive design.
 PHP: For server-side scripting and managing user requests and reservations.
 MySQL: Database management for storing users, reservations, and menu details.
-Backend:
+##Backend:
 PHP: For handling authentication, reservation management, and admin features.
 MySQL: To store user, menu, reservation, and statistics data.
