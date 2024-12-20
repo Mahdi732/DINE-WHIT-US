@@ -15,9 +15,7 @@
                 <li><a href="index.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">Accueil</a></li>
                 <li><a href="menu.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">Menus</a></li>
                 <?php   
-
                     require 'db.php';
-
                     session_start();
                     if(!isset($_SESSION['user_id'])){
                         echo '<li><a href="login.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">Login</a></li>';

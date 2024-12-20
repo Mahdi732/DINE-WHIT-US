@@ -123,41 +123,63 @@ if (mysqli_num_rows($result) > 0) {
                 </div>
             </div>
 
-            <div class="md:col-span-2 glass-morphism p-6 rounded-2xl">
-                <h3 class="text-2xl font-bold text-accent mb-6">Reservation History</h3>
-                <div class="space-y-4">
-                    <div class="bg-dark-blue p-4 rounded-xl flex justify-between items-center">
-                        <div>
-                            <div class="font-bold text-accent">Restaurant Gastronomique</div>
-                            <div class="text-sm opacity-75">May 15, 2024 | 7:30 PM | 4 Persons</div>
+            <?php
+include("/xampp/htdocs/dinewhitus/db.php");
+if (!isset($_SESSION['user_id'])) {
+    die("Error: User not authenticated.");
+}
+
+$user_id = $_SESSION['user_id'];
+
+$query = "
+    SELECT r.*, m.nom_menu
+    FROM reservations r
+    INNER JOIN menus m ON r.id_menu = m.id_menu
+    WHERE r.id_client = ?
+    ORDER BY r.date_reservation DESC, r.heure_reservation DESC
+";
+$stmt = mysqli_prepare($conn, $query);
+mysqli_stmt_bind_param($stmt, "i", $user_id);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+
+if (!$result) {
+    die("Erreur lors de la récupération des réservations : " . mysqli_error($conn));
+}
+?>
+
+<div class="md:col-span-2 glass-morphism overflow-auto p-6 rounded-2xl">
+    <h3 class="text-2xl font-bold text-accent mb-6">Reservation History</h3>
+    <div class="space-y-4">
+        <?php if (mysqli_num_rows($result) > 0): ?>
+            <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                <div class="bg-dark-blue p-4 rounded-xl flex justify-between items-center">
+                    <div>
+                        <div class="font-bold text-accent">
+                            <?php echo htmlspecialchars($row['nom_menu']); ?>
                         </div>
-                        <div class="flex space-x-2">
-                            <span class="bg-green-500 text-white px-3 py-1 rounded-full text-xs">Completed</span>
-                            <button class="bg-accent text-primary px-3 py-1 rounded-full text-xs hover:opacity-80">Details</button>
+                        <div class="text-sm opacity-75">
+                            <?php echo date("F j, Y", strtotime($row['date_reservation'])); ?> |
+                            <?php echo date("g:i A", strtotime($row['heure_reservation'])); ?> |
+                            <?php echo htmlspecialchars($row['nombre_personnes']); ?> Persons
                         </div>
                     </div>
-                    <div class="bg-dark-blue p-4 rounded-xl flex justify-between items-center">
-                        <div>
-                            <div class="font-bold text-accent">Café Moderne</div>
-                            <div class="text-sm opacity-75">June 2, 2024 | 12:00 PM | 2 Persons</div>
-                        </div>
-                        <div class="flex space-x-2">
-                            <span class="bg-yellow-500 text-white px-3 py-1 rounded-full text-xs">Pending</span>
-                            <button class="bg-accent text-primary px-3 py-1 rounded-full text-xs hover:opacity-80">Details</button>
-                        </div>
-                    </div>
-                    <div class="bg-dark-blue p-4 rounded-xl flex justify-between items-center">
-                        <div>
-                            <div class="font-bold text-accent">Bistro Parisien</div>
-                            <div class="text-sm opacity-75">July 10, 2024 | 6:45 PM | 3 Persons</div>
-                        </div>
-                        <div class="flex space-x-2">
-                            <span class="bg-red-500 text-white px-3 py-1 rounded-full text-xs">Cancelled</span>
-                            <button class="bg-accent text-primary px-3 py-1 rounded-full text-xs hover:opacity-80">Details</button>
-                        </div>
+                    <div class="flex space-x-2">
+                        <span class="bg-<?php echo $row['statut'] === 'approuvée' ? 'green' : ($row['statut'] === 'refusée' ? 'red' : 'yellow'); ?>-500 text-white px-3 py-1 rounded-full text-xs">
+                            <?php echo ucfirst($row['statut']); ?>
+                        </span>
+                        <button class="bg-accent text-primary px-3 py-1 rounded-full text-xs hover:opacity-80">
+                            Details
+                        </button>
                     </div>
                 </div>
-            </div>
+            <?php endwhile; ?>
+        <?php else: ?>
+            <p class="text-sm text-gray-400">No reservations found.</p>
+        <?php endif; ?>
+    </div>
+</div>
+
         </div>
     </main>
 

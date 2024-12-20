@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $sqlstmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($sqlstmt, "sds", $name, $price, $image_path);
     if (mysqli_stmt_execute($sqlstmt)) {
-        echo "Plat ajouté avec succès!";
+        header("Location: admin.php");
     } else {
         echo "Erreur: " . mysqli_stmt_error($sqlstmt);
     }

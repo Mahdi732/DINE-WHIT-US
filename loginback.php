@@ -24,9 +24,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             }
             exit;
         } else {
+            header("location: login.php");
             echo "<script>alert('Invalid credentials');</script>";
         }
     } else {
+        header("location: login.php");
         echo "<script>alert('Invalid email or user not found');</script>";
     }
 }

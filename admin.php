@@ -151,35 +151,95 @@ if ($result) {
                 </div>
             </div>
 
-            <div class="glass-morphism rounded-xl p-6">
-                <h2 class="text-2xl font-bold mb-4 text-accent">Commandes Récentes</h2>
-                <div class="overflow-x-auto">
-                    <table class="w-full">
-                        <thead>
-                            <tr class="text-left">
-                                <th class="pb-4 text-accent">ID</th>
-                                <th class="pb-4 text-accent">Client</th>
-                                <th class="pb-4 text-accent">Menu</th>
-                                <th class="pb-4 text-accent">Prix</th>
-                                <th class="pb-4 text-accent">Status</th>
-                                <th class="pb-4 text-accent">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-t border-gray-700">
-                                <td class="py-4">#1234</td>
-                                <td class="py-4">Jean Dupont</td>
-                                <td class="py-4">Menu Spécial</td>
-                                <td class="py-4">75€</td>
-                                <td class="py-4"><span class="px-2 py-1 bg-green-500 rounded-full text-sm">Complété</span></td>
-                                <td class="py-4">
-                                    <button class="text-accent hover:text-secondary">Voir détails</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            <?php
+include("/xampp/htdocs/dinewhitus/db.php");
+
+if (!isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) {
+    die("Access denied. Admins only.");
+}
+
+$query = "SELECT r.id_reservation, c.nom AS client_name, c.prenom AS client_surname, m.nom_menu, r.date_reservation, r.heure_reservation, r.nombre_personnes, r.statut, SUM(p.prix) AS total_price
+          FROM reservations r
+          JOIN client c ON r.id_client = c.id_client
+          JOIN menus m ON r.id_menu = m.id_menu
+          JOIN plats p ON m.id_menu = p.id_menu
+          WHERE r.statut IN ('en attente', 'approuvée', 'refusée') 
+          GROUP BY r.id_reservation";
+$result = mysqli_query($conn, $query);
+
+if (!$result) {
+    die("Error fetching reservations: " . mysqli_error($conn));
+}
+?>
+
+<div class="glass-morphism rounded-xl p-6">
+    <h2 class="text-2xl font-bold mb-4 text-accent">Commandes Récentes</h2>
+    <div class="overflow-x-auto">
+        <table class="w-full">
+            <thead>
+                <tr class="text-left">
+                    <th class="pb-4 text-accent">ID</th>
+                    <th class="pb-4 text-accent">Client</th>
+                    <th class="pb-4 text-accent">Menu</th>
+                    <th class="pb-4 text-accent">Prix</th>
+                    <th class="pb-4 text-accent">Status</th>
+                    <th class="pb-4 text-accent">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (mysqli_num_rows($result) > 0): ?>
+                    <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                        <tr class="border-t border-gray-700">
+                            <td class="py-4">#<?php echo $row['id_reservation']; ?></td>
+                            <td class="py-4"><?php echo htmlspecialchars($row['client_name'] . ' ' . $row['client_surname']); ?></td>
+                            <td class="py-4"><?php echo htmlspecialchars($row['nom_menu']); ?></td>
+                            <td class="py-4"><?php echo number_format($row['total_price'], 2); ?>€</td>
+                            <td class="py-4">
+                                <form method="POST" action="" class="inline">
+                                    <input type="hidden" name="reservation_id" value="<?php echo $row['id_reservation']; ?>">
+                                    <select name="status" onchange="this.form.submit()" class="border text-black p-2 rounded">
+                                        <option value="en attente" <?php if ($row['statut'] == 'en attente') echo 'selected'; ?>>En attente</option>
+                                        <option value="approuvée" <?php if ($row['statut'] == 'approuvée') echo 'selected'; ?>>Approuvée</option>
+                                        <option value="refusée" <?php if ($row['statut'] == 'refusée') echo 'selected'; ?>>Refusée</option>
+                                    </select>
+                                </form>
+                            </td>
+                            <td class="py-4">
+                                <button class="text-accent hover:text-secondary">Voir détails</button>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="6" class="py-4 text-center text-gray-500">Aucune réservation trouvée.</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $reservation_id = intval($_POST['reservation_id']);
+    $new_status = mysqli_real_escape_string($conn, $_POST['status']);
+    $valid_statuses = ['en attente', 'approuvée', 'refusée'];
+    if (!in_array($new_status, $valid_statuses)) {
+        die("Invalid status value.");
+    }
+    $query = "UPDATE reservations SET statut = ? WHERE id_reservation = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "si", $new_status, $reservation_id);
+
+    if (mysqli_stmt_execute($stmt)) {
+        echo "Status updated successfully.";
+    } else {
+        echo "Error updating status: " . mysqli_error($conn);
+    }
+}
+?>
+
+
         </div>
         <div class="grid grid-cols-2 gap-6 mt-8">
                 <div class="glass-morphism p-6 rounded-2xl text-center transform transition-all duration-500 hover:scale-105 animate-pulse-slow">
@@ -246,12 +306,6 @@ if ($result) {
                     <input type="text" id="dishName" name="name" required
                         class="w-full px-4 py-2 bg-deep-blue border border-accent rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary text-white"
                         placeholder="Entrez le nom du menu">
-                </div>
-                <div class="space-y-2">
-                    <label class="block text-accent text-sm font-bold">Description</label>
-                    <textarea name="description" rows="3" required
-                        class="w-full px-4 py-2 bg-deep-blue border border-accent rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary text-white"
-                        placeholder="Entrez une description"></textarea>
                 </div>
                 <div class="space-y-2">
                     <label class="block text-accent text-sm font-bold">Choisir des Plats</label>
