@@ -138,7 +138,7 @@
         </div>
     </div>
     <?php
-include("/xampp/htdocs/dinewhitus/db.php");
+include("/xampp/htdocs/DINE-WHIT-US/db.php");
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $name = $_POST['name'];
     $prenom = $_POST['prenom'];
