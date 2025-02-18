@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("/xampp/htdocs/dinewhitus/db.php");
+include("/xampp/htdocs/DINE-WHIT-US/db.php");
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $email_login = $_POST["email_login"];
