@@ -15,30 +15,31 @@
                 <li><a href="index.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">Accueil</a></li>
                 <li><a href="menu.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">Menus</a></li>
                 <?php   
-                    require 'db.php';
-                    session_start();
-                    if(!isset($_SESSION['user_id'])){
-                        echo '<li><a href="login.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">Login</a></li>';
-                    }else{
-                        if($conn){
-                            $getID = $_SESSION['user_id'];
-                            $getUsers = $conn->prepare("SELECT * FROM client WHERE id_client = ?");
-                            $getUsers->bind_param("i",$getID);
-                            if($getUsers->execute()){
-                                $getResult = $getUsers->get_result();
-                                $line = $getResult->fetch_assoc();
-                                if($line['email'] == "admin@gmail.com"){
-                                    echo '<li><a href="admin.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">Admin</a></li>';
-                                }else{
-                                    echo '<li><a href="user.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">Profile</a></li>';
-                                }
-                            }
-                            
-                        }
-                    }
+
+require 'db.php';
+session_start();
+if(!isset($_SESSION['user_id'])){
+    echo '<li><a href="login.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">Login</a></li>';
+}else{
+    if($conn){
+        $getID = $_SESSION['user_id'];
+        $getUsers = $conn->prepare("SELECT * FROM client WHERE id_client = ?");
+        $getUsers->bind_param("i",$getID);
+        if($getUsers->execute()){
+            $getResult = $getUsers->get_result();
+            $line = $getResult->fetch_assoc();
+            if(isset($line['email']) && $line['email'] == "admin@gmail.com"){
+                echo '<li><a href="admin.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">Admin</a></li>';
+            }else{
+                echo '<li><a href="user.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">Profile</a></li>';
+            }
+        }
+        
+    }
+}
 
 
-                ?>
+?>
                 </ul>
             </nav>
         </div>
