@@ -1,5 +1,5 @@
 <?php
-include("/xampp/htdocs/dinewhitus/db.php");
+include("/xampp/htdocs/DINE-WHIT-US/db.php");
 session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $menu_name = mysqli_real_escape_string($conn, $_POST["name"]);
