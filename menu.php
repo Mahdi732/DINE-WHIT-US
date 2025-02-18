@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("/xampp/htdocs/dinewhitus/db.php");
+include("/xampp/htdocs/DINE-WHIT-US/db.php");
 $menus_query = "SELECT * FROM menus";
 $menus_result = mysqli_query($conn, $menus_query);
 ?>
@@ -36,7 +36,7 @@ $menus_result = mysqli_query($conn, $menus_query);
                             if($getUsers->execute()){
                                 $getResult = $getUsers->get_result();
                                 $line = $getResult->fetch_assoc();
-                                if($line['email'] == "admin@gmail.com"){
+                                if(isset($line['email']) && $line['email'] == "admin@gmail.com"){
                                     echo '<li><a href="admin.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">Admin</a></li>';
                                 }else{
                                     echo '<li><a href="user.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">Profile</a></li>';
@@ -108,7 +108,6 @@ $menus_result = mysqli_query($conn, $menus_query);
     </div>
 
     <?php
-include("/xampp/htdocs/dinewhitus/db.php");
 $query = "SELECT id_menu, nom_menu FROM menus";
 $result = mysqli_query($conn, $query);
 if (!$result) {
