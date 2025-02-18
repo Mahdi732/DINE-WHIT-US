@@ -31,6 +31,9 @@ if ($_SESSION['user_email'] === "admin@gmail.com") {
         } else {
             echo "Erreur lors de la préparation de la requête : " . mysqli_error($conn);
         }
+
+
+
     
         mysqli_close($conn);
     }
