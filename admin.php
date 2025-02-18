@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("/xampp/htdocs/dinewhitus/db.php");
+include("/xampp/htdocs/DINE-WHIT-US/db.php");
 if (!isset($_SESSION['user_id'])) {
     header("Location: admin.php");
     exit;
@@ -152,7 +152,6 @@ if ($result) {
             </div>
 
             <?php
-include("/xampp/htdocs/dinewhitus/db.php");
 
 if (!isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) {
     die("Access denied. Admins only.");
@@ -221,8 +220,8 @@ if (!$result) {
 
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $reservation_id = intval($_POST['reservation_id']);
-    $new_status = mysqli_real_escape_string($conn, $_POST['status']);
+    $reservation_id = $_POST['reservation_id'] ?? null;
+    $new_status = $_POST['status'] ?? 'refusée';
     $valid_statuses = ['en attente', 'approuvée', 'refusée'];
     if (!in_array($new_status, $valid_statuses)) {
         die("Invalid status value.");
@@ -232,7 +231,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     mysqli_stmt_bind_param($stmt, "si", $new_status, $reservation_id);
 
     if (mysqli_stmt_execute($stmt)) {
-        echo "Status updated successfully.";
+        echo "";
     } else {
         echo "Error updating status: " . mysqli_error($conn);
     }
@@ -242,38 +241,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         </div>
         <div class="grid grid-cols-2 gap-6 mt-8">
+            <?php
+            $sql = "SELECT * FROM menus";
+            $stmt = mysqli_query($conn, $sql);
+            while ($result = mysqli_fetch_assoc($stmt)) {
+                echo '
                 <div class="glass-morphism p-6 rounded-2xl text-center transform transition-all duration-500 hover:scale-105 animate-pulse-slow">
-                    <div class="text-4xl font-bold text-accent mb-4">01</div>
-                    <h3 class="text-xl mb-3">Design Créatif</h3>
+                    <div class="text-4xl font-bold text-accent mb-4">'.$result["nom_menu"].'</div>
+                    <h3 class="text-xl mb-3">'.$result["description"].'</h3>
                     <p class="text-sm opacity-75">Solutions visuelles innovantes</p>
                     <div class="w-full h-32 image-placeholder mt-4 rounded-xl">
                         Image Service 1
                     </div>
+                    <form action="dishes.php" method="POST">
+                    <input type="hidden" name="delete" value="'.$result["id_menu"].'">
+                    <button type="submit">delete</button>
+                </form>
                 </div>
-                <div class="glass-morphism p-6 rounded-2xl text-center transform transition-all duration-500 hover:scale-105 animate-pulse-slow">
-                    <div class="text-4xl font-bold text-accent mb-4">02</div>
-                    <h3 class="text-xl mb-3">Tech Avancée</h3>
-                    <p class="text-sm opacity-75">Technologies de pointe</p>
-                    <div class="w-full h-32 image-placeholder mt-4 rounded-xl">
-                        Image Service 2
-                    </div>
-                </div>
-                <div class="glass-morphism p-6 rounded-2xl text-center transform transition-all duration-500 hover:scale-105 animate-pulse-slow">
-                    <div class="text-4xl font-bold text-accent mb-4">03</div>
-                    <h3 class="text-xl mb-3">Support Total</h3>
-                    <p class="text-sm opacity-75">Accompagnement personnalisé</p>
-                    <div class="w-full h-32 image-placeholder mt-4 rounded-xl">
-                        <img src="" alt="">
-                    </div>
-                </div>
-                <div class="glass-morphism p-6 rounded-2xl text-center transform transition-all duration-500 hover:scale-105 animate-pulse-slow">
-                    <div class="text-4xl font-bold text-accent mb-4">04</div>
-                    <h3 class="text-xl mb-3">Stratégie</h3>
-                    <p class="text-sm opacity-75">Approche sur mesure</p>
-                    <div class="w-full h-32 image-placeholder mt-4 rounded-xl">
-                        Image Service 4
-                    </div>
-                </div>
+                ';
+            }
+
+            ?>
+                
+                
             </div>
     </main>
 
