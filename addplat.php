@@ -1,10 +1,12 @@
 <?php
-include("/xampp/htdocs/dinewhitus/db.php");
+include("/xampp/htdocs/DINE-WHIT-US/db.php");
 session_start();
+
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $name = $_POST["name"];
     $price = $_POST["price"];
     $image_path = "";
+    $id_menu = $_POST['id_menu'] ?? 1;
     $id_chef = $_SESSION['is_admin'] ? $_SESSION['user_id'] : ($_SESSION['user_id'] ?? null);
 
     if (!$id_chef) {
@@ -12,8 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
 
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
-        $upload_dir = "/uploads/"; 
-        $target_dir = $_SERVER['DOCUMENT_ROOT'] . $upload_dir; 
+        $upload_dir = "/uploads/";
+        $target_dir = $_SERVER['DOCUMENT_ROOT'] . $upload_dir;
         if (!is_dir($target_dir)) {
             mkdir($target_dir, 0777, true);
         }
@@ -33,9 +35,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         die("Image upload failed. Please try again.");
     }
 
-    $sql = "INSERT INTO plats (nom_plat, prix,image ) VALUES (?, ?, ?)";
+    $sql = "INSERT INTO plats (nom_plat, prix, image, id_menu) VALUES (?, ?, ?, ?)";
     $sqlstmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($sqlstmt, "sds", $name, $price, $image_path);
+
+    if (!$sqlstmt) {
+        die("Preparation failed: " . mysqli_error($conn));
+    }
+    mysqli_stmt_bind_param($sqlstmt, "sdsi", $name, $price, $image_path, $id_menu);
     if (mysqli_stmt_execute($sqlstmt)) {
         header("Location: admin.php");
     } else {
