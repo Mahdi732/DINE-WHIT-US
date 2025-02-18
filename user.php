@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("/xampp/htdocs/dinewhitus/db.php");
+include("/xampp/htdocs/DINE-WHIT-US/db.php");
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit;
@@ -124,7 +124,7 @@ if (mysqli_num_rows($result) > 0) {
             </div>
 
             <?php
-include("/xampp/htdocs/dinewhitus/db.php");
+include("/xampp/htdocs/DINE-WHIT-US/db.php");
 if (!isset($_SESSION['user_id'])) {
     die("Error: User not authenticated.");
 }
