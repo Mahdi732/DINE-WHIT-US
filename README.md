@@ -1,84 +1,52 @@
 # DineWithUs
 
-A modern web application for restaurant reservation management that connects diners with chefs for a seamless booking experience.
+Modern restaurant reservation platform connecting diners and chefs with real-time bookings, menu management, and analytics.
 
-## 🌟 Overview
+## Overview
 
-DineWithUs is a comprehensive restaurant reservation platform that bridges the gap between diners and chefs. The system offers an intuitive interface for clients to browse menus and make reservations, while providing chefs with powerful tools to manage bookings and track restaurant performance.
+DineWithUs streamlines how guests discover menus and reserve tables while giving chefs/admins the tools to manage bookings, menus, and performance insights in one place.
 
-## ✨ Features
+## Core Features
 
-### 👤 Client Features
+### Client
+- Discover menus with dish details, pricing, and search/filter
+- Create and manage accounts (profile updates, password recovery)
+- Book tables with date/time selection, party size, and special requests
+- Manage bookings (view history, modify, cancel, receive confirmations)
 
-- **Menu Exploration**
-  - Browse detailed restaurant menus
-  - View dish descriptions and prices
-  - Search and filter menu items
+### Chef/Admin
+- Secure auth and restaurant profile management
+- Approve/reject reservations and manage table availability
+- Menu creation and updates (categories, pricing, availability, offers)
+- Analytics dashboard: pending counts, approved bookings (today/tomorrow), upcoming reservations, client registrations, custom reports
 
-- **Account Management**
-  - Easy sign-up and login process
-  - Profile customization
-  - Password recovery system
+## Tech Stack
 
-- **Reservation System**
-  - Real-time table booking
-  - Date and time slot selection
-  - Party size specification
-  - Special requests handling
+- Frontend: HTML5, CSS3, JavaScript, Tailwind CSS
+- Backend: PHP, MySQL
+- Other: Responsive layout, cross-browser compatibility, basic real-time updates, secure data handling, performance-focused
 
-- **Booking Management**
-  - View reservation history
-  - Modify existing bookings
-  - Cancel reservations
-  - Receive booking confirmations
+## Getting Started
 
-### 👨‍🍳 Chef/Admin Features
+1) Clone the repo into your web root (e.g., `c:/xampp/htdocs/dine`).
+2) Create the database and tables: import `script.sql` into MySQL (database name: `dinewithus`).
+3) Configure DB connection in `config/database.php` and `db.php` (host, db name, user, password).
+4) Ensure `uploads/` is writable for profile/menu/dish images.
+5) Run the app via your local web server (e.g., Apache on XAMPP) and open `http://localhost/dine`.
 
-- **Account Management**
-  - Secure authentication system
-  - Restaurant profile customization
-  - Staff access management
+## Demo Data
 
-- **Reservation Control**
-  - Real-time reservation monitoring
-  - Booking approval/rejection system
-  - Table availability management
-  - Custom notification settings
+- Use the insert statements in `script.sql` (or your own) to seed clients, menus, and reservations for testing.
 
-- **Analytics Dashboard**
-  - Pending reservation count
-  - Today's and tomorrow's approved bookings
-  - Upcoming reservation details
-  - Client registration statistics
-  - Custom reporting tools
+## Project Structure
 
-- **Menu Administration**
-  - Create and update menus
-  - Manage dish categories
-  - Set pricing and availability
-  - Special offers management
+- `components/` shared layout pieces (header, footer)
+- `config/` database configuration
+- `img/` static assets
+- `js/` client-side scripts
+- `uploads/` user-uploaded images
+- Root PHP files handle authentication, reservations, and menu management
 
-## 🛠️ Technology Stack
+## Contributing
 
-### Frontend
-- **Core Technologies**
-  - HTML5
-  - CSS3
-  - JavaScript
-  - Tailwind CSS
-
-### Backend
-- **Server-Side**
-  - PHP
-  - MySQL Database
-
-### Key Features
-- Responsive design for all devices
-- Cross-browser compatibility
-- Real-time updates
-- Secure data handling
-- Optimized performance
-
-
-
-
+Pull requests are welcome. Please open an issue first to discuss major changes or new features.
