@@ -65,7 +65,7 @@ DineWithUs is a comprehensive restaurant reservation platform that bridges the g
   - HTML5
   - CSS3
   - JavaScript
-  - Bootstrap/Tailwind CSS
+  - Tailwind CSS
 
 ### Backend
 - **Server-Side**

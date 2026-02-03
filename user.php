@@ -1,23 +1,35 @@
 <?php
 session_start();
-include("/xampp/htdocs/DINE-WHIT-US/db.php");
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+require_once 'config/database.php';
+
+// Redirect if not logged in
+if (!isset($_SESSION['user_id']) || isset($_SESSION['is_admin'])) {
+    Security::redirect('login.php');
     exit;
 }
 
-$user_email = $_SESSION['user_email'];
-$sql = "SELECT * FROM client WHERE email = ?";
-$stmt = mysqli_prepare($conn, $sql);
-mysqli_stmt_bind_param($stmt, "s", $user_email);
-mysqli_stmt_execute($stmt);
-$result = mysqli_stmt_get_result($stmt);
+$user_id = $_SESSION['user_id'];
+$user = User::getById($user_id);
 
-if (mysqli_num_rows($result) > 0) {
-    $user = mysqli_fetch_assoc($result);
-} else {
-    echo "User not found";
-    exit;
+// Get user's reservations
+$reservations = Database::query(
+    "SELECT * FROM reservations WHERE user_id = ? ORDER BY date DESC, time DESC",
+    [$user_id]
+);
+
+// Calculate stats
+$total_reservations = count($reservations);
+$approved_count = count(array_filter($reservations, fn($r) => ($r['status'] ?? 'pending') === 'approved'));
+$pending_count = count(array_filter($reservations, fn($r) => ($r['status'] ?? 'pending') === 'pending'));
+
+// Get user initials for avatar
+$initials = '';
+if ($user) {
+    $names = explode(' ', $user['nom'] ?? '');
+    foreach ($names as $name) {
+        $initials .= strtoupper(substr($name, 0, 1));
+    }
+    $initials = substr($initials, 0, 2);
 }
 ?>
 <!DOCTYPE html>
@@ -25,34 +37,29 @@ if (mysqli_num_rows($result) > 0) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard</title>
+    <title>My Profile - Dine With Us</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'serif': ['Playfair Display', 'serif'],
+                    },
                     colors: {
-                        'primary': '#54162B',
-                        'secondary': '#B4182D',
-                        'accent': '#fda481',
-                        'dark-blue': '#37415c',
-                        'deep-blue': '#242e49',
-                        'night-blue': '#181a2f'
-                    },
-                    animation: {
-                        'fade-in-down': 'fade-in-down 0.7s ease-out',
-                        'pulse-slow': 'pulse 3s infinite',
-                    },
-                    keyframes: {
-                        'fade-in-down': {
-                            '0%': { 
-                                opacity: '0',
-                                transform: 'translateY(-20px)'
-                            },
-                            '100%': { 
-                                opacity: '1',
-                                transform: 'translateY(0)'
-                            }
+                        brand: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            200: '#fed7aa',
+                            300: '#fdba74',
+                            400: '#fb923c',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                            800: '#9a3412',
+                            900: '#7c2d12',
                         }
                     }
                 }
@@ -60,137 +67,149 @@ if (mysqli_num_rows($result) > 0) {
         }
     </script>
     <style>
-        .glass-morphism {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.125);
-        }
-        .image-placeholder {
-            background: rgba(255, 255, 255, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fda481;
-            font-weight: bold;
-        }
+        .glass { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
     </style>
 </head>
-<body class="bg-gradient-to-br from-deep-blue to-night-blue text-white min-h-screen flex flex-col">
-    <header class="fixed w-full top-0 z-50 glass-morphism shadow-lg">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-4 animate-fade-in-down">
-                <div class="w-12 h-12 bg-secondary rounded-full flex items-center justify-center">
-                    <span class="text-white font-bold"><?php echo substr($user['nom'], 0, 1) . substr($user['prenom'], 0, 1) ?></span>
+<body class="bg-slate-950 text-white min-h-screen font-sans">
+    <!-- Navigation -->
+    <nav class="glass sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <a href="index.php" class="font-serif text-2xl font-bold text-brand-500">Dine With Us</a>
+                <div class="flex items-center gap-4">
+                    <a href="menu.php" class="text-gray-300 hover:text-white transition">Menu</a>
+                    <a href="logout.php" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg transition">Logout</a>
                 </div>
-                <span class="text-2xl font-bold text-accent tracking-wider"><?php echo $user['nom'] . " " . $user['prenom'] ?></span>
             </div>
-            <nav>
-                <ul class="flex space-x-6">
-                <li><a href="index.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">Accueil</a></li>
-                <li><a href="menu.php" class="text-accent hover:text-red-400 transition-all duration-300 transform ">Menus</a></li>
-                    <li>
-                        <form action="logout.php" method="post">
-                            <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm transition duration-300">
-                                Logout
-                            </button>
-                        </form>
-                    </li>
-                </ul>
-            </nav>
         </div>
-    </header>
+    </nav>
 
-    <main class="container mx-auto px-4 pt-24 pb-12 flex-grow">
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="md:col-span-1 glass-morphism p-6 rounded-2xl shadow-2xl transform transition-all duration-500 hover:scale-105 animate-fade-in-down">
-                <div class="text-center">
-                    <div class="w-32 h-32 mx-auto bg-secondary rounded-full flex items-center justify-center mb-4">
-                        <span class="text-4xl text-white font-bold"><?php echo substr($user['nom'], 0, 1) . substr($user['prenom'], 0, 1) ?></span>
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        <!-- Page Header -->
+        <div class="mb-8">
+            <h1 class="font-serif text-4xl font-bold mb-2">My Profile</h1>
+            <p class="text-gray-400">Manage your account and view your reservations</p>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-8">
+            <!-- Profile Card -->
+            <div class="lg:col-span-1">
+                <div class="glass rounded-2xl p-6 text-center">
+                    <div class="w-24 h-24 bg-gradient-to-br from-brand-500 to-brand-600 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl font-bold">
+                        <?php echo $initials ?: 'U'; ?>
                     </div>
-                    <h2 class="text-2xl font-bold text-accent mb-2"><?php echo $user['nom'] . " " . $user['prenom'] ?></h2>
-                    <p class="text-sm opacity-75 mb-4">Regular Customer</p>
+                    <h2 class="text-xl font-semibold mb-1"><?php echo htmlspecialchars($user['nom'] ?? 'User'); ?></h2>
+                    <p class="text-gray-400 mb-6"><?php echo htmlspecialchars($user['email'] ?? ''); ?></p>
                     
-                    <div class=" mb-6">
+                    <!-- Stats -->
+                    <div class="grid grid-cols-3 gap-4 pt-6 border-t border-white/10">
                         <div>
-                            <div class="text-accent font-bold"><?php echo $user['email'] ?></div>
-                            <div class="text-xs opacity-75">email</div>
+                            <div class="text-2xl font-bold text-brand-500"><?php echo $total_reservations; ?></div>
+                            <div class="text-xs text-gray-400">Total</div>
                         </div>
+                        <div>
+                            <div class="text-2xl font-bold text-green-500"><?php echo $approved_count; ?></div>
+                            <div class="text-xs text-gray-400">Approved</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold text-yellow-500"><?php echo $pending_count; ?></div>
+                            <div class="text-xs text-gray-400">Pending</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div class="glass rounded-2xl p-6 mt-6">
+                    <h3 class="font-semibold mb-4">Quick Links</h3>
+                    <div class="space-y-3">
+                        <a href="menu.php" class="flex items-center gap-3 text-gray-300 hover:text-white transition p-2 rounded-lg hover:bg-white/5">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                            </svg>
+                            View Menu
+                        </a>
+                        <a href="index.php#reservation" class="flex items-center gap-3 text-gray-300 hover:text-white transition p-2 rounded-lg hover:bg-white/5">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                            Make Reservation
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reservations -->
+            <div class="lg:col-span-2">
+                <div class="glass rounded-2xl overflow-hidden">
+                    <div class="p-6 border-b border-white/10">
+                        <h2 class="text-xl font-semibold">My Reservations</h2>
                     </div>
                     
-                    <button class="bg-secondary text-white px-6 py-2 rounded-full hover:bg-accent transition-all duration-300 transform hover:scale-105">
-                        Edit Profile
-                    </button>
+                    <?php if (empty($reservations)): ?>
+                    <div class="p-12 text-center">
+                        <svg class="w-16 h-16 text-gray-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        <p class="text-gray-400 mb-4">You haven't made any reservations yet</p>
+                        <a href="index.php#reservation" class="inline-block bg-brand-600 hover:bg-brand-700 px-6 py-3 rounded-xl transition">
+                            Book a Table
+                        </a>
+                    </div>
+                    <?php else: ?>
+                    <div class="divide-y divide-white/10">
+                        <?php foreach ($reservations as $res): 
+                            $status = $res['status'] ?? 'pending';
+                            $statusClasses = [
+                                'pending' => 'bg-yellow-500/20 text-yellow-400',
+                                'approved' => 'bg-green-500/20 text-green-400',
+                                'rejected' => 'bg-red-500/20 text-red-400',
+                            ];
+                            $statusClass = $statusClasses[$status] ?? $statusClasses['pending'];
+                        ?>
+                        <div class="p-6 hover:bg-white/5 transition">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                <div>
+                                    <div class="flex items-center gap-3 mb-2">
+                                        <span class="text-lg font-semibold"><?php echo htmlspecialchars($res['name']); ?></span>
+                                        <span class="px-3 py-1 rounded-full text-xs font-medium <?php echo $statusClass; ?>">
+                                            <?php echo ucfirst($status); ?>
+                                        </span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-4 text-sm text-gray-400">
+                                        <span class="flex items-center gap-1">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                            </svg>
+                                            <?php echo date('M d, Y', strtotime($res['date'])); ?>
+                                        </span>
+                                        <span class="flex items-center gap-1">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                            </svg>
+                                            <?php echo date('g:i A', strtotime($res['time'])); ?>
+                                        </span>
+                                        <span class="flex items-center gap-1">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                            </svg>
+                                            <?php echo $res['guests']; ?> guests
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
-
-            <?php
-include("/xampp/htdocs/DINE-WHIT-US/db.php");
-if (!isset($_SESSION['user_id'])) {
-    die("Error: User not authenticated.");
-}
-
-$user_id = $_SESSION['user_id'];
-
-$query = "
-    SELECT r.*, m.nom_menu
-    FROM reservations r
-    INNER JOIN menus m ON r.id_menu = m.id_menu
-    WHERE r.id_client = ?
-    ORDER BY r.date_reservation DESC, r.heure_reservation DESC
-";
-$stmt = mysqli_prepare($conn, $query);
-mysqli_stmt_bind_param($stmt, "i", $user_id);
-mysqli_stmt_execute($stmt);
-$result = mysqli_stmt_get_result($stmt);
-
-if (!$result) {
-    die("Erreur lors de la récupération des réservations : " . mysqli_error($conn));
-}
-?>
-
-<div class="md:col-span-2 glass-morphism overflow-auto p-6 rounded-2xl">
-    <h3 class="text-2xl font-bold text-accent mb-6">Reservation History</h3>
-    <div class="space-y-4">
-        <?php if (mysqli_num_rows($result) > 0): ?>
-            <?php while ($row = mysqli_fetch_assoc($result)): ?>
-                <div class="bg-dark-blue p-4 rounded-xl flex justify-between items-center">
-                    <div>
-                        <div class="font-bold text-accent">
-                            <?php echo htmlspecialchars($row['nom_menu']); ?>
-                        </div>
-                        <div class="text-sm opacity-75">
-                            <?php echo date("F j, Y", strtotime($row['date_reservation'])); ?> |
-                            <?php echo date("g:i A", strtotime($row['heure_reservation'])); ?> |
-                            <?php echo htmlspecialchars($row['nombre_personnes']); ?> Persons
-                        </div>
-                    </div>
-                    <div class="flex space-x-2">
-                        <span class="bg-<?php echo $row['statut'] === 'approuvée' ? 'green' : ($row['statut'] === 'refusée' ? 'red' : 'yellow'); ?>-500 text-white px-3 py-1 rounded-full text-xs">
-                            <?php echo ucfirst($row['statut']); ?>
-                        </span>
-                        <button class="bg-accent text-primary px-3 py-1 rounded-full text-xs hover:opacity-80">
-                            Details
-                        </button>
-                    </div>
-                </div>
-            <?php endwhile; ?>
-        <?php else: ?>
-            <p class="text-sm text-gray-400">No reservations found.</p>
-        <?php endif; ?>
-    </div>
-</div>
-
         </div>
-    </main>
+    </div>
 
-    <footer class="bg-gray-800 text-white py-8">
-        <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-            <p>&copy; 2024 User Dashboard</p>
-            <div class="flex space-x-4 mt-4 md:mt-0">
-                <a href="#" class="hover:text-accent">Privacy Policy</a>
-                <a href="#" class="hover:text-accent">Terms of Service</a>
-                <a href="#" class="hover:text-accent">Contact Support</a>
-            </div>
+    <!-- Footer -->
+    <footer class="mt-16 border-t border-white/10 py-8">
+        <div class="max-w-6xl mx-auto px-4 text-center text-gray-500">
+            <p>&copy; <?php echo date('Y'); ?> Dine With Us. All rights reserved.</p>
         </div>
     </footer>
 </body>
